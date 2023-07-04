@@ -6,11 +6,12 @@ headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 }
 
+
 def scrape_data():
     url = 'https://auto.ria.com/uk/search/?indexName=auto,order_auto,newauto_search&categories.main.id=1&brand.id[0]=79&model.id[0]=2104&country.import.usa.not=0&price.currency=1&abroad.not=0&custom.not=1&damage.not=0&page=0&size=100'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
-    titles = [re.search(r"(.+)\s+в", x['title']).group(1) for x in soup.find_all('a', {'data-template-v':"6"})]
+    titles = [re.search(r"(.+)\s+в", x['title']).group(1) for x in soup.find_all('a', {'data-template-v': "6"})]
     link = soup.find_all('a', {'class': 'address'})
     links = [x['href'] for x in link]
     price = soup.find_all('span', {'data-currency': 'USD'})
@@ -39,12 +40,11 @@ def scrape_images(url):
 
 
 def scrape_usa_images(vin):
-    # Застосовуємо регулярний вираз із URL
     vin = re.search(r'vin-(\w+)\.html', vin).group(1)
     url = 'https://www.google.com/search'
     params = {
-        'q': f'site:bid.cars {vin}',  # Ваш запит тут
-        'num': 10  # Кількість результатів, яку ви хочете отримати
+        'q': f'site:bid.cars {vin}',
+        'num': 10
     }
     session = requests.Session()
     session.headers['User-Agent'] = "User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
