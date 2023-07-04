@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 import script
 
-bot_token = '6183264828:AAGSD5Pi1kKZbPvi--qJDuYZi3M8PcK8o_Q'
+bot_token = 'TOKEN'
 bot = telebot.TeleBot(bot_token)
 tg_chat_id = '@yegvbkslfnhk'
 
